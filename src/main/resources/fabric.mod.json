@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "entity-highlighter-addon",
+  "version": "${version}",
+  "name": "Entity Highlighter Addon",
+  "description": "Adds living-entity and mob highlighting to Player Highlighter, including names, health, distance and target icons.",
+  "authors": ["wacky man + ChatGPT"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.wackyman.entityhighlighter.EntityHighlighterAddon"
+    ]
+  },
+  "mixins": [
+    "entity-highlighter-addon.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "fabric-api": "*",
+    "minecraft": "26.3",
+    "java": ">=25",
+    "player-highlighter": ">=1.2.1"
+  }
+}

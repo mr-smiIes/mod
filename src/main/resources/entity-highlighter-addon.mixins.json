@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.wackyman.entityhighlighter.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "LivingEntityGlowingMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
