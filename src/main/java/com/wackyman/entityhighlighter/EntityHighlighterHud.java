@@ -7,6 +7,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.Mth;
 
 public final class EntityHighlighterHud {
     private EntityHighlighterHud() {}
@@ -46,7 +47,9 @@ public final class EntityHighlighterHud {
             }
 
             String health = String.format("%.1f/%.1f", entity.getHealth(), entity.getMaxHealth());
-            String text = name + "  " + distance + "m  " + health + " HP";
+            String arrow = getDirectionArrow(camera, entity);
+
+            String text = arrow + " " + name + "  " + distance + "m  " + health + " HP";
 
             graphics.text(client.font, text, x, y, 0xFFF0F0F0, false);
 
@@ -55,5 +58,27 @@ public final class EntityHighlighterHud {
 
             if (rendered >= maxMobs) break;
         }
+    }
+
+    /**
+     * Uses the same 8-direction arrow logic as Player Highlighter,
+     * but points from the camera/player toward the mob.
+     */
+    private static String getDirectionArrow(Entity camera, Entity target) {
+        double dx = target.getX() - camera.getX();
+        double dz = target.getZ() - camera.getZ();
+
+        double targetYaw = Math.toDegrees(Math.atan2(-dx, dz));
+        float cameraYaw = Mth.wrapDegrees(camera.getYRot());
+        double diff = Mth.wrapDegrees(targetYaw - cameraYaw);
+
+        if (diff >= -22.5 && diff < 22.5) return "↑";
+        if (diff >= 22.5 && diff < 67.5) return "↖";
+        if (diff >= 67.5 && diff < 112.5) return "←";
+        if (diff >= 112.5 && diff < 157.5) return "↙";
+        if (diff >= -67.5 && diff < -22.5) return "↗";
+        if (diff >= -112.5 && diff < -67.5) return "→";
+        if (diff >= -157.5 && diff < -112.5) return "↘";
+        return "↓";
     }
 }
