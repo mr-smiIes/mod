@@ -23,7 +23,8 @@ public final class EntityHighlighterHud {
         int y = graphics.guiHeight() - 30;
         int lineHeight = 11;
 
-        for (LivingEntity entity : world.entitiesForRendering()) {
+        for (Entity rawEntity : world.entitiesForRendering()) {
+            if (!(rawEntity instanceof LivingEntity entity)) continue;
             if (entity == camera || entity instanceof Player || entity.isRemoved() || entity.isDeadOrDying()) continue;
 
             Vec3 pos = entity.position();
