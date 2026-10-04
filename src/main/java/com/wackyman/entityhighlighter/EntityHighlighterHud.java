@@ -70,7 +70,7 @@ public final class EntityHighlighterHud {
 
         double targetYaw = Math.toDegrees(Math.atan2(-dx, dz));
         float cameraYaw = Mth.wrapDegrees(camera.getYRot());
-        double diff = Mth.wrapDegrees(targetYaw - cameraYaw);
+        double diff = Mth.wrapDegrees(cameraYaw - targetYaw);
 
         if (diff >= -22.5 && diff < 22.5) return "↑";
         if (diff >= 22.5 && diff < 67.5) return "↖";
