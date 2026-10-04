@@ -11,7 +11,11 @@ import net.minecraft.world.phys.Vec3;
 public final class EntityHighlighterHud {
     private EntityHighlighterHud() {}
 
-    public static void render(GuiGraphicsExtractor graphics, net.minecraft.client.DeltaTracker tickCounter) {
+    /**
+     * Draws mob information at the TOP of Player Highlighter's existing text HUD.
+     * Player Highlighter itself draws player information from the bottom upward.
+     */
+    public static void renderInPlayerHud(GuiGraphicsExtractor graphics) {
         if (!EntityHighlighterAddon.isActive()) return;
 
         Minecraft client = Minecraft.getInstance();
@@ -20,12 +24,16 @@ public final class EntityHighlighterHud {
         if (world == null || camera == null || client.gui.hud.isHidden()) return;
 
         int x = 8;
-        int y = graphics.guiHeight() - 30;
+        int y = 8;
         int lineHeight = 11;
+        int rendered = 0;
+        int maxMobs = 12;
 
         for (Entity rawEntity : world.entitiesForRendering()) {
             if (!(rawEntity instanceof LivingEntity entity)) continue;
-            if (entity == camera || entity instanceof Player || entity.isRemoved() || entity.isDeadOrDying()) continue;
+            if (entity == camera || entity instanceof Player || entity.isRemoved() || entity.isDeadOrDying()) {
+                continue;
+            }
 
             Vec3 pos = entity.position();
             double dx = pos.x - camera.getX();
@@ -39,10 +47,13 @@ public final class EntityHighlighterHud {
 
             String health = String.format("%.1f/%.1f", entity.getHealth(), entity.getMaxHealth());
             String text = name + "  " + distance + "m  " + health + " HP";
+
             graphics.text(client.font, text, x, y, 0xFFF0F0F0, false);
 
-            y -= lineHeight;
-            if (y < 8) break;
+            y += lineHeight;
+            rendered++;
+
+            if (rendered >= maxMobs) break;
         }
     }
 }
