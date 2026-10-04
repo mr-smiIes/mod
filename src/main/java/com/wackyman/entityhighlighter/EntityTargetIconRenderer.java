@@ -1,7 +1,5 @@
 package com.wackyman.entityhighlighter;
 
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -38,7 +36,8 @@ public final class EntityTargetIconRenderer {
         float halfW = width * 0.5F;
         float halfH = height * 0.5F;
 
-        for (LivingEntity entity : client.level.entitiesForRendering()) {
+        for (Entity rawEntity : client.level.entitiesForRendering()) {
+            if (!(rawEntity instanceof LivingEntity entity)) continue;
             if (entity == camera || entity instanceof Player || entity.isRemoved() || entity.isDeadOrDying()) continue;
 
             double px = entity.getX();
