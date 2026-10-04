@@ -10,12 +10,7 @@ public class EntityHighlighterAddon implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        HudElementRegistry.attachElementBefore(
-                VanillaHudElements.CHAT,
-                Identifier.fromNamespaceAndPath(MOD_ID, "mob_hud"),
-                EntityHighlighterHud::render
-        );
-
+        // Mob text is injected directly into Player Highlighter's existing HUD.
         HudElementRegistry.attachElementBefore(
                 VanillaHudElements.CHAT,
                 Identifier.fromNamespaceAndPath(MOD_ID, "mob_icons"),
