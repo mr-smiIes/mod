@@ -3,7 +3,8 @@
   "package": "com.wackyman.entityhighlighter.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
-    "LivingEntityGlowingMixin"
+    "LivingEntityGlowingMixin",
+    "PlayerHighlighterHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
